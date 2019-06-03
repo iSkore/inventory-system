@@ -1,0 +1,41 @@
+{
+	"name": "api",
+	"version": "0.0.1",
+	"description": "inventory-management-api",
+	"main": "entrypoint.js",
+	"scripts": {
+		"build": "webpack --env.NODE_ENV=production --mode production",
+		"dev": "pm2-runtime start ecosystem.config.js --env development",
+		"start:dev": "npm run dev",
+		"lint": "eslint .",
+		"start:prod": "pm2-runtime start ecosystem.config.js --env production",
+		"start": "node entrypoint.js",
+		"test": "mocha",
+		"todo": "./node_modules/whatodo/cli.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/api.git"
+	},
+	"author": "Radiant Solutions",
+	"license": "ISC",
+	"devDependencies": {
+		"eslint": "5.16.0"
+	},
+	"dependencies": {
+		"@mongoosejs/double": "0.1.2",
+		"@parellin/lightmap": "0.1.2",
+		"@pm2/io": "4.2.0",
+		"body-parser": "1.19.0",
+		"config": "3.1.0",
+		"cors": "2.8.5",
+		"express": "4.16.4",
+		"express-pino-logger": "4.0.0",
+		"http-response-class": "1.2.6",
+		"mongoose": "5.5.6",
+		"on-finished": "2.3.0",
+		"pino": "5.12.3",
+		"superstruct": "0.6.1",
+		"uuid": "3.3.2"
+	}
+}

@@ -1,0 +1,60 @@
+version: '3'
+
+volumes:
+    portainer_data:
+
+networks:
+    crud_network:
+        driver: bridge
+
+services:
+    nginx:
+        container_name: nginx
+        image: nginx
+        ports:
+            - 80:80
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./ui/dist:/usr/share/nginx/html
+        restart: always
+        networks:
+            - crud_network
+
+
+        ui:
+            build:
+                context: ./ui
+            volumes:
+                - ./ui/dist:/opt/app/dist
+                - ./ui/package.json:/opt/app/package.json
+
+
+    api:
+        container_name: api
+        build:
+            context: ./api
+        entrypoint: "npm run start:dev"
+        ports:
+            - 3000:3000
+        restart: always
+        volumes:
+            - ./api/config:/opt/app/config
+            - ./api/src:/opt/app/src
+        networks:
+            - crud_network
+        depends_on:
+            - nginx
+            - mongo
+
+
+    mongo:
+        container_name: mongo
+        image: mongo
+        ports:
+            - 27017:27017
+        restart: always
+        volumes:
+            - ./mongodb:/data/db
+        networks:
+            - crud_network
