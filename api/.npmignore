@@ -1,0 +1,13 @@
+.git
+.idea
+.editorconfig
+.eslint*
+.dockerignore
+docker_entry.sh
+Dockerfile
+seed
+test
+*.postman_collection.json
+storage
+*.md
+src
